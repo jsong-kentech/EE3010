@@ -29,7 +29,7 @@ x_mat = zeros(N,M);
 for m = 1:M
     
     % generate random walk for N particles
-    dx_now = 2*unidrnd(2,N,1)-3;
+    dx_now = dx*(2*unidrnd(2,N,1)-3);
     
     % calculate position
     if m ==1
@@ -40,7 +40,7 @@ for m = 1:M
 end
 
 
-% analyze: root mean distance
+% analyze: average distance
 figure(5)
 plot(t_vec,x_mat)
 xlabel('time')
@@ -53,23 +53,8 @@ plot(t_vec,d_avg)
 xlabel('time')
 ylabel('avg distance')
 
-% analyze: flux
-    % define concentration
-edges = linspace(-2*d_avg(end),2*d_avg(end),21);
-positions = (edges(2:end) + edges(1:end-1))/2;
-c_mat = zeros(length(edges)-1,M);
-
-for m = 1:M
-
-    c_mat(:,m) = histcounts(x_mat(:,m),edges);
-
-end
-
-
-figure(7)
-for m = 1:1000:M
-    
-    plot(positions',c_mat(:,m)); hold on
-
-end
+figure(7) 
+plot(t_vec.^0.5,d_avg)
+xlabel('time^{0.5}')
+ylabel('avg distance')
 
